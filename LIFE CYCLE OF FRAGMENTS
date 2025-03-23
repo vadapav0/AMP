@@ -1,0 +1,128 @@
+----------------------LifeCycleofFragment.java----------------------------
+
+package com.example.practcal3b;
+
+import android.content.Context;
+import android.net.Uri;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class LifeCycleofFragment extends Fragment {
+
+    String tag = "Life Cycle of Fragment";
+
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private String mParam1;
+    private String mParam2;
+
+    private OnFragmentInteractionListener mListener;
+
+    // Empty constructor (required)
+    public LifeCycleofFragment() {
+        // Required empty public constructor
+    }
+
+    // Factory method to create a new instance of this fragment
+    public static LifeCycleofFragment newInstance(String param1, String param2) {
+        LifeCycleofFragment fragment = new LifeCycleofFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(tag, "In the onCreate() event");
+
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Log.d(tag, "In the onCreateView() event");
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_life_cycleof, container, false);
+    }
+
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(tag, "In the onAttach() event");
+
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(tag, "In the onStart() event");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(tag, "In the onResume() event");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(tag, "In the onPause() event");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(tag, "In the onStop() event");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(tag, "In the onDestroyView() event");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(tag, "In the onDestroy() event");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(tag, "In the onDetach() event");
+        mListener = null;
+    }
+
+    // Interface for interaction
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+    }
+}
