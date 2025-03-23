@@ -1,3 +1,5 @@
+Note: make toolbar.xml in layout folder in res
+
 -----------------activity_main.xml---------------------------
 
 <?xml version="1.0" encoding="utf-8"?>
