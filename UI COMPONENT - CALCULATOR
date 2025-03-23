@@ -1,0 +1,175 @@
+---------------------activity_main.xml------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+        <EditText
+            android:id="@+id/et1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Number 1" />
+        <EditText
+            android:id="@+id/et2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Number 2" />
+        <Button
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Addition" />
+        <Button
+            android:id="@+id/sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subtraction" />
+        <Button
+            android:id="@+id/mult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Multiplication" />
+        <Button
+            android:id="@+id/div"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Division" />
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clear" />
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+-----------------------------------MainActivity.java-------------------------------
+package com.example.prac5b;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button b1, b2, b3, b4, b5;
+    EditText e1, e2;
+    TextView tx1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main); // Layout file where your UI exists
+
+        // Linking UI elements with code
+        e1 = findViewById(R.id.et1);
+        e2 = findViewById(R.id.et2);
+
+        b1 = findViewById(R.id.add);
+        b2 = findViewById(R.id.sub);
+        b3 = findViewById(R.id.mult);
+        b4 = findViewById(R.id.div);
+        b5 = findViewById(R.id.clear);
+
+        tx1 = findViewById(R.id.result);
+
+        // Add button
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int n1 = getNumber(e1);
+                int n2 = getNumber(e2);
+                int sum = n1 + n2;
+                tx1.setText("Addition: " + sum);
+            }
+        });
+
+        // Subtract button
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int n1 = getNumber(e1);
+                int n2 = getNumber(e2);
+                int sub = n1 - n2;
+                tx1.setText("Subtraction: " + sub);
+            }
+        });
+
+        // Multiply button
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int n1 = getNumber(e1);
+                int n2 = getNumber(e2);
+                int mul = n1 * n2;
+                tx1.setText("Multiplication: " + mul);
+            }
+        });
+
+        // Divide button (with zero check)
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int n1 = getNumber(e1);
+                int n2 = getNumber(e2);
+
+                if (n2 == 0) {
+                    tx1.setText("Cannot divide by zero!");
+                } else {
+                    int div = n1 / n2;
+                    tx1.setText("Division: " + div);
+                }
+            }
+        });
+
+        // Clear button
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                e1.setText("");
+                e2.setText("");
+                tx1.setText("");
+            }
+        });
+    }
+
+    /**
+     * Utility method to get integer from EditText
+     * Trims spaces and converts to int.
+     */
+    private int getNumber(EditText editText) {
+        String text = editText.getText().toString().trim();
+
+        // Check if field is empty
+        if (text.isEmpty()) {
+            return 0;
+        }
+
+        return Integer.parseInt(text);
+    }
+}
