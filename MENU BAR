@@ -1,3 +1,5 @@
+Create a new folder in “res” named “menu” -> Add a new xml file in menu folder named “menu.xml”
+
 -----------------------menu.xml--------------------------------
 
 <?xml version="1.0" encoding="utf-8"?>
