@@ -1,0 +1,54 @@
+------------------------ACTIVITY_MAIN.XML-----------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView android:id="@+id/textView"
+            android:layout_width="match_parent" android:layout_height="56dp"
+            android:background="@color/Red"
+            android:text="@string/Heading" android:textSize="24sp" />
+
+        <TextView android:id="@+id/textView2"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:background="@color/Gray"
+            android:text="@string/Description" android:textSize="24sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+--------------------COLOR.XML--------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="Red">#FF0000</color>
+    <color name="Gray">#6B6B6B</color>
+</resources>
+
+-------------------------STRING.XML--------------------------------
+<resources>
+    <string name="app_name">Practical 2 </string>
+    <string name="Heading">Programming Resources</string>
+    <string name="Description">
+        Android is a mobile operating system developed by Google.
+        It is based on a modified version of the Linux kernel and other open source software, and is
+        designed primarily for touch screen mobile devices such as smart phones and tablets
+    </string>
+</resources>
