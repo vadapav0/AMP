@@ -1,0 +1,144 @@
+----------------------Acitivity_main.xml---------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <RelativeLayout
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="28dp">
+        <TextView
+            android:id="@+id/LoginExample"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ED0101"
+            android:text="Login Example"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+        <EditText
+            android:id="@+id/Username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LoginExample"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="Enter Username"
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Username"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="@+id/Username"
+            android:layout_alignParentRight="@+id/Username"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/AttemptsRemaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Password"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:maxHeight="35dp"
+            android:text="Attempts Remaining"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/AttemptsRemaining"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="97dp"
+            android:layout_marginLeft="97dp"
+            android:layout_marginEnd="-281dp"
+            android:layout_marginRight="-281dp"
+            android:layout_marginBottom="-59dp"
+            android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-1dp"
+            android:layout_marginBottom="59dp"
+            android:text="Submit" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="57dp"
+            android:text="Cancel" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+----------------------MainActivity.java---------------------------
+package com.example.prac9;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+public class MainActivity extends AppCompatActivity {
+    Button b1, b2;
+    EditText e1, e2;
+    TextView tx1;
+    int counter = 3;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        e1 = (EditText)findViewById(R.id.Username);
+        e2 = (EditText)findViewById(R.id.Password);
+        b1 = (Button)findViewById(R.id.submit);
+        b2 = (Button)findViewById(R.id.cancel);
+        tx1 = (TextView)findViewById(R.id.num);
+        b1.setOnClickListener(v -> {
+            if (e1.getText().toString().equals("admin") && e2.getText().toString().equals("admin")) {
+                Toast.makeText(getApplicationContext(), " Correct username and password.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Wrong Credentials",
+                        Toast.LENGTH_SHORT).show();
+                tx1.setVisibility(View.VISIBLE);
+                tx1.setBackgroundColor(Color.RED);
+                tx1.setText(String.valueOf(--counter));
+                if (counter == 0) {
+                    b1.setEnabled(false);
+                }
+            }
+        });
+    }
+}
