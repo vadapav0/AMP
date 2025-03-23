@@ -1,3 +1,6 @@
+: Create “raw” folder in res - > put a video in it (with .mp4 extension)
+
+
 -------------------------Activity_main.xml-------------------------
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
