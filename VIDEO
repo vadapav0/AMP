@@ -1,0 +1,69 @@
+-------------------------Activity_main.xml-------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="258dp" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play Video" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+-----------------------------MainActivity.java--------------------------------
+
+package com.example.prac10;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
+import androidx.appcompat.app.AppCompatActivity;
+public class MainActivity extends AppCompatActivity {
+    VideoView videoView;
+    Button btn;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        videoView = findViewById(R.id.videoView);
+        btn = findViewById(R.id.button); // Ensure button is initialized
+        setupVideoView();
+        // Set button click listener
+        btn.setOnClickListener(this::playVideo);
+    }
+    private void setupVideoView() {
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        videoView.setMediaController(mediaController);
+        videoView.setOnPreparedListener(mp -> mediaController.show(0)); // Force show controls
+    }
+    public void playVideo(View view) {
+        try {
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video);
+            videoView.setVideoURI(uri);
+            videoView.requestFocus();
+            videoView.setOnPreparedListener(mp -> videoView.start());
+        } catch (Exception e) {
+            Log.e("Error", "Video playback failed", e);
+        }
+    }
+}
